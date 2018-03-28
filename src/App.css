@@ -1,28 +1,40 @@
 .App {
-  text-align: center;
+  margin: 0px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.pad {
+  padding-left: 50px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.brand {
+  font-family: 'Lobster', cursive;
+  font-size: 25px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.space-brand {
+  padding-right: 10px;
 }
 
-.App-intro {
-  font-size: large;
+.myContainer {
+  width: 60%;
+  margin: auto;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.brand a {
+  color: black;
 }
+
+.footer {
+  background-color: rgba(21, 101, 133, 0.459);
+}
+
+.stadistic {
+  background-color:  #f9f7f7;
+  padding-top: 20px;
+}
+
+.full {
+  padding: 1rem 0;
+  margin: 1rem 0 0 0;
+}
+
