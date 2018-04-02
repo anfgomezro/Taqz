@@ -10,7 +10,7 @@ class Header extends Component{
             <Segment basic>
                 <Menu className='pad' secondary>
                     <Menu.Item className='brand' header>
-                    <img className="ui mini image space-brand" src={logo}/>                    
+                    <img className="ui mini image space-brand" src={logo} alt='Taqz Brand'/>                    
                     <Link to='/'>
                     Taqz
                     </Link>                    

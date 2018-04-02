@@ -7,12 +7,12 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
-<<<<<<< HEAD
-    "mongoose": "^5.0.12"
-=======
+    "express-validator": "^5.1.0",
+    "mongoose": "^5.0.12",
     "nodemon": "^1.17.2"
->>>>>>> a13dbc2fe2e64dac9f420f07eecee06e42366bcb
   },
   "devDependencies": {
     "concurrently": "^3.5.0"

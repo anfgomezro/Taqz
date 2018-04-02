@@ -3,10 +3,6 @@ import {Grid, Image } from 'semantic-ui-react'
 import img_and from './images/and.jpg'
 
 class About extends Component {
-    constructor(props){
-        super(props)
-    }
-
     render (){
         return(
                 <div className='myContainer'>

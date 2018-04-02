@@ -3,10 +3,6 @@ import {Container, Grid, Image, Statistic, Divider} from 'semantic-ui-react'
 import img_home from './images/img_home.jpg'
 
 class Home extends Component {
-    constructor(props){
-        super(props)
-    }
-
     render (){
         return(
             <div className='full'>
