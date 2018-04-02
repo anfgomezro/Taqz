@@ -4,14 +4,11 @@ import logo from './images/logo.png'
 import { Link } from 'react-router-dom'
 
 class Header extends Component{
-    constructor(props) {
-        super(props);
-    }
 
     render (){
         return(
             <Segment basic>
-                <Menu className='pad'secondary>
+                <Menu className='pad' secondary>
                     <Menu.Item className='brand' header>
                     <img className="ui mini image space-brand" src={logo}/>                    
                     <Link to='/'>

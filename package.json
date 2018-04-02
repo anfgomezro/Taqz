@@ -8,7 +8,11 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+<<<<<<< HEAD
     "mongoose": "^5.0.12"
+=======
+    "nodemon": "^1.17.2"
+>>>>>>> a13dbc2fe2e64dac9f420f07eecee06e42366bcb
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
