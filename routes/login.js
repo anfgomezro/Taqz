@@ -1,38 +1,64 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/user')
 
+passport.use(new LocalStrategy({
+    usernameField : 'email',
+    passwordField : 'password'
+},
+    function (username, password, done) {
+        User.getUserByEmail(username, function (err, user) {
+            if (err) throw err;
+            if (!user) {
+                console.log('UnKnwon user')
+                return done(null,false)
+            }
 
-router.post('/',function (req,res){
-    let first_name = req.body.first_name
-    let last_name = req.body.last_name
-    let email = req.body.email
-    let password = req.body.password
-    let password2 = req.body.password2
+            User.comparePassword(password, user.password, function (err, isMatch) {
+                if (err) throw err;
+                if (isMatch) {
+                    console.log('HI')
+                    return done(null,user)
+                } else {
+                    console.log('Invalid password')
+                    return done(null,false)
+                }
+            });
+        });
+    }));
 
-    req.checkBody('first_name','Name is required').notEmpty()
-    req.checkBody('email', 'Email is required').notEmpty()
-    req.checkBody('email', 'Email is not valid').isEmail()
-    req.checkBody('last_name', 'Last Name is required').notEmpty()
-    req.checkBody('password' , 'Password is required').notEmpty()
-    req.checkBody('password2' , 'Passwords don\'t match').equals(password)
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
 
-    let errors = req.validationErrors()
+passport.deserializeUser(function (id, done) {
+    User.getUserById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
-    if(errors){
-        console.log('error body request')
-        res.send('Fatal')
-    } else {
-        let newUser = new User({
-            first_name : first_name,
-            last_name : last_name,
-            email : email,
-            password : password            
+router.post('/',
+    passport.authenticate('local',{succesRedirect:'/api/hello',failureRedirect:'/register'}),
+    function(req,res){
+        req.session.save(() => {
+            res.redirect('/api/hello')
         })
-
-        User.createUser(newUser)
-        res.send('Hi')
     }
+)
+
+router.get('/', (req,res,next) => {
+    if (req.isAuthenticated()) {
+        console.log('I am Autenticated1')
+        return next()
+    } else {
+        console.log('I am not Autenticated sdfasf')
+        res.redirect("/")
+    }
+}, function(req,res){
+    console.log('I am Autenticated2')
 })
+
 
 module.exports = router;

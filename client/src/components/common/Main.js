@@ -1,6 +1,6 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
-import {Home , Login, About, Response} from './'
+import {Home , Login, About, Response, Register} from './'
 
 function Main(props){
         return(
@@ -9,6 +9,7 @@ function Main(props){
                 <Route path='/login' component={Login}/>
                 <Route path='/about' component={About}/>
                 <Route path='/api/hello' component={Response}/>
+                <Route path='/register' component={Register}/>
             </Switch>
         )
 }

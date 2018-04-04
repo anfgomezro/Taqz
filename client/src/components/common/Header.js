@@ -4,8 +4,35 @@ import logo from './images/logo.png'
 import { Link } from 'react-router-dom'
 
 class Header extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            session : false
+        }
+    }
+
+    componentWillMount(){
+        this.callRequest()
+            .then( res => this.setState({session : res.session}) )
+            .catch( err => console.log(err))
+    }
+
+    callRequest = async () => {
+        const response = await fetch('/login')
+        const body = await response.json()
+        return body
+    }
 
     render (){
+
+        let menu_gs = ''
+        let menu_fq = ''
+        if(this.state.session){
+            menu_gs = <Menu.Item name='get started' /> 
+        }else{
+            menu_fq = <Menu.Item name='frequent questions' />
+        }
+
         return(
             <Segment basic>
                 <Menu className='pad' secondary>
@@ -15,8 +42,8 @@ class Header extends Component{
                     Taqz
                     </Link>                    
                     </Menu.Item>
-                    <Menu.Item name='get started'/>
-                    <Menu.Item name='frequent questions'/>
+                    {menu_gs}
+                    {menu_fq}
                     <Menu.Item>
                         <Link to='/about'>About</Link>
                     </Menu.Item>                    
@@ -26,7 +53,10 @@ class Header extends Component{
                         <Input icon='search' placeholder='Search...' />
                     </Menu.Item>    
                     <Menu.Item>
-                        <Link to='/login'>Login</Link>
+                        <Link to='/register'>Sign in</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link to='/login'>Sign up</Link>
                     </Menu.Item>
                     </Menu.Menu>
                 </Menu>
