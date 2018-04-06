@@ -37,5 +37,6 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 }
 
 module.exports.getUserById = function (id, callback) {
+    console.log('algo con id')
     User.findById(id, callback);
 }
