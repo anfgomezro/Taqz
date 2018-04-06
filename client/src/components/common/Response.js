@@ -5,14 +5,16 @@ class Response extends Component {
 
     state = {
         response: '',
-        cont: ''
+        cont: '',
+        porcent : 0
     }
 
     componentDidMount() {
         this.callApi()
           .then(res => {
               this.setState({ response: res.express })
-              this.setState({cont : res.cont})
+              this.setState({ cont : res.cont })
+              this.setState({ porcent : res.porcent })
             })
           .catch(err => console.log(err));
       }
@@ -26,9 +28,9 @@ class Response extends Component {
 
     render (){
         return(
-            <div className='myContainer'>                
+            <div className='myContainer main'>                
                 <Header>Build in progress</Header>
-                    <Progress percent={10} progress />
+                    <Progress percent={this.state.porcent} progress />
                 <Message icon>
                     <Icon name='circle notched' loading />
                     <Message.Content>

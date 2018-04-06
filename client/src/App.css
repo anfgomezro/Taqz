@@ -37,3 +37,12 @@
   padding: 1rem 0;
   margin: 1rem 0 0 0;
 }
+.main{
+ margin-top: 0;
+ min-height: 364px;
+}
+
+.main--content{
+  width: 95%;
+  margin: auto;
+}

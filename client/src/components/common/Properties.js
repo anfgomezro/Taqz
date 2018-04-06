@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
-import { Sidebar, Segment, Header, Button, Message } from 'semantic-ui-react';
+import { Sidebar, Segment, Header, Button, Message, Icon } from 'semantic-ui-react';
 import {SideBar} from './'
+import { Switch, Route } from 'react-router-dom'
+import {Calendar, DashBoard} from './'
 
 class Properties extends Component {
     constructor(props){
@@ -32,11 +34,15 @@ class Properties extends Component {
     render(){
         return(
             <div>
-                <Button onClick={this.toggleMenu}>Menu</Button>
-                <Sidebar.Pushable as={Segment}>
+                <Button icon onClick={this.toggleMenu} basic><Icon name='list layout'/></Button>
+                <Sidebar.Pushable className='main'>
                     <SideBar action={this.state.visible}/>
-                    <Sidebar.Pusher>
-                        <Segment basic>
+                    <Sidebar.Pusher className='main--content'>
+                        <Switch>
+                            <Route path='/usr/properties/dashboard' component={DashBoard} />
+                            <Route path='/usr/properties/calendar' component={Calendar} />
+                        </Switch>
+                        <Segment basic >
                             <Header as='h3'>Application Content</Header>
                             <Message positive>
                                 <Message.Header>{this.state.name}</Message.Header>
