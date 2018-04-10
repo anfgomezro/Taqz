@@ -1,56 +1,58 @@
 import React, {Component} from 'react'
-import { Sidebar, Segment, Header, Button, Message, Icon } from 'semantic-ui-react';
-import {SideBar} from './'
-import { Switch, Route } from 'react-router-dom'
-import {Calendar, DashBoard} from './'
+import Select, { Segment, Accordion, Form } from 'semantic-ui-react'
 
 class Properties extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            visible : false,
-            name : ''
-        }
-    }
-
-    componentWillMount(){
-        this.callRequest()
-        .then( res => this.setState({ name : res.name}))
-        .catch(err => console.log(err))
-    }
-
-    callRequest = async () => {
-        const response = await fetch('/usr/properties',{
-            credentials : 'include'
-        })
-        const body = await response.json()
-        return body
-    }
-
-    toggleMenu = () => {
-        this.setState({visible : !this.state.visible})
-    }
 
     render(){
-        return(
+
+        const formCar = (
             <div>
-                <Button icon onClick={this.toggleMenu} basic><Icon name='list layout'/></Button>
-                <Sidebar.Pushable className='main'>
-                    <SideBar action={this.state.visible}/>
-                    <Sidebar.Pusher className='main--content'>
-                        <Switch>
-                            <Route path='/usr/properties/dashboard' component={DashBoard} />
-                            <Route path='/usr/properties/calendar' component={Calendar} />
-                        </Switch>
-                        <Segment basic >
-                            <Header as='h3'>Application Content</Header>
-                            <Message positive>
-                                <Message.Header>{this.state.name}</Message.Header>
-                                <p>Welcome to<b> Taqz</b>. Getting Started</p>
-                            </Message>
-                        </Segment>
-                    </Sidebar.Pusher>
-                </Sidebar.Pushable>
+                <Form.Group unstackable widths={2}>
+                    <div className='field'>
+                        <label>Type of vehicle</label>
+                        <select className='ui selection dropdown'>
+                            <option value="chevrolet">Chevrolet</option>
+                            <option value="ford" >Ford</option>
+                            <option value="honda" className='damit'>Honda</option>
+                            <option value="Hyundai" >Hyundai</option>
+                            <option value="kia" >Kia</option>
+                            <option value="mazda" >Mazda</option>
+                            <option value="nissan" >Nissan</option>
+                        </select>                        
+                    </div>
+                    <div className='field'>
+                        <label>Brand of Vehicle</label>
+                        <select name='brand' className='ui selection dropdown'>
+                            <option value="automovil">AutoMóvil</option>
+                            <option value="camioneta">Camioneta</option>
+                            <option value="doblecabina">Doblecabina</option>
+                            <option value="electrico">Electríco o Híbrido</option>
+                            <option value="motocicleta">Motocicleta</option>
+                        </select>
+                    </div>   
+                </Form.Group>
+                <Form.Group widths={2}>
+                    <Form.Input label='Line' placeholder='Line' name='line'/>
+                    <Form.Input label='Engine' placeholder='Engine' name='engine'/>
+                </Form.Group>
+                <Form.Button color='grey' content='Add'/>
+            </div>
+        )
+
+        const panels = [
+            {
+                title: 'Add new Vehicle',
+                content : {content : formCar, key: 'content'}
+            }
+        ]
+
+        return(
+            <div className='main--content'>
+                <Segment>
+                    <Form action='/add/car' method='post'>
+                        <Accordion as={Form.Field} panels={panels}/>
+                    </Form>
+                </Segment>
             </div>
         )
     }

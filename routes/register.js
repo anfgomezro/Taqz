@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+const Tax = require('../models/taxes')
 
 
 router.post('/',function (req,res){
@@ -23,11 +24,21 @@ router.post('/',function (req,res){
         console.log('error body request')
         res.send('Fatal')
     } else {
+
+        let newTax = new Tax({
+            vehicle: [],
+            land : [],
+            rent : 0
+        })
+
         let newUser = new User({
             first_name : first_name,
             last_name : last_name,
             email : email,
-            password : password            
+            password : password,
+            data : {
+                tax : newTax
+            }
         })
 
         User.createUser(newUser)

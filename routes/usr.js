@@ -13,7 +13,7 @@ router.get('/test',(req,res) =>{
     res.json({'test':'fine'})
 })
 
-router.get('/properties', (req,res) =>{
+router.get('/dashboard', (req,res) =>{
     res.json({name : req.user.first_name})
 })
 

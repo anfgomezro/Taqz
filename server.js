@@ -14,6 +14,7 @@ var cookieSession = require('cookie-session')
 const MongoStore = require('connect-mongo')(session)
 const usr = require('./routes/usr')
 const auth = require('./routes/auth')
+const add =require('./routes/add')
 
 require('./passport/passport')
 
@@ -47,17 +48,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
 
-//app.use(session({
-  //secret: 'secret',
-  //saveUninitialized: true,
-  //resave: true,
-  //store : new MongoStore({mongooseConnection : db})
-//}))
-
-//app.use(passport.initialize())
-//app.use(passport.session())
-
-
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
       var namespace = param.split('.')
@@ -81,6 +71,7 @@ app.use('/login', login)
 app.use('/logout', logout)
 app.use('/usr', passport.authenticate('jwt', { session: false }), usr)
 app.use('/auth', passport.authenticate('jwt', { session: false }), auth)
+app.use('/add', passport.authenticate('jwt', { session: false }), add)
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

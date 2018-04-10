@@ -43,6 +43,11 @@
 }
 
 .main--content{
-  width: 95%;
+  width: 89%;
   margin: auto;
+}
+
+.damit {
+  color: red;
+  padding: 10px;
 }

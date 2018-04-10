@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const Tax = require('./taxes')
 
 var UserSchema = mongoose.Schema({
     first_name  : String,
@@ -8,7 +9,10 @@ var UserSchema = mongoose.Schema({
                 type: String,
                 unique : true
     },
-    password    : String
+    password    : String,
+    data : {
+        tax : Tax.schema
+    }
 })
 
 var User = module.exports = mongoose.model('User', UserSchema)
@@ -37,6 +41,13 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 }
 
 module.exports.getUserById = function (id, callback) {
-    console.log('algo con id')
     User.findById(id, callback);
+}
+
+module.exports.updateUser = function(id, callback){
+    User.findById(id, callback)
+}
+
+module.exports.checkTax = function(id, callback){
+    User.findById(id,callback)
 }
