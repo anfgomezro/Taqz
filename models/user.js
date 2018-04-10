@@ -47,7 +47,3 @@ module.exports.getUserById = function (id, callback) {
 module.exports.updateUser = function(id, callback){
     User.findById(id, callback)
 }
-
-module.exports.checkTax = function(id, callback){
-    User.findById(id,callback)
-}

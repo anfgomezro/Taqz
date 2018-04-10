@@ -10,11 +10,6 @@ router.post('/car', (req,res) => {
     let line = req.body.line
     let engine = req.body.engine
 
-    console.log(brand)
-    console.log(kind)
-    console.log(line)
-    console.log(engine)
-
     let errors = req.validationErrors()
 
     if(errors){

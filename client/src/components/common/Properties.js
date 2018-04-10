@@ -1,7 +1,26 @@
 import React, {Component} from 'react'
-import Select, { Segment, Accordion, Form } from 'semantic-ui-react'
+import { Segment, Accordion, Form, Card, Divider } from 'semantic-ui-react'
 
 class Properties extends Component {
+constructor(props){
+    super(props)
+    this.state = {
+        properties : []
+    }
+}
+    componentWillMount(){
+        this.callRequest()
+        .then(res => this.setState({properties : res.properties}))
+        .catch(err => console.log(err))
+    }
+
+    callRequest = async () => {
+        const response = await fetch('/usr/properties', {
+            credentials : 'include'
+        })
+        const body = response.json()
+        return body
+    }
 
     render(){
 
@@ -10,7 +29,7 @@ class Properties extends Component {
                 <Form.Group unstackable widths={2}>
                     <div className='field'>
                         <label>Type of vehicle</label>
-                        <select className='ui selection dropdown'>
+                        <select className='ui selection dropdown' name='kind'>
                             <option value="chevrolet">Chevrolet</option>
                             <option value="ford" >Ford</option>
                             <option value="honda" className='damit'>Honda</option>
@@ -39,10 +58,31 @@ class Properties extends Component {
             </div>
         )
 
+        let cards = this.state.properties.map( (vehicles) =>
+            <Card 
+            header = {vehicles.brand}
+            meta = {vehicles.line}
+            description = {vehicles.cilinder}
+            />
+        )
+            
+        let view = (
+                <Card.Group>
+                    {cards}
+                </Card.Group>
+        )
+
         const panels = [
             {
                 title: 'Add new Vehicle',
                 content : {content : formCar, key: 'content'}
+            }
+        ]
+
+        const panelItem = [
+            {
+                title : 'View your properties',
+                content : { content : view ,key: 'content'}
             }
         ]
 
@@ -52,6 +92,8 @@ class Properties extends Component {
                     <Form action='/add/car' method='post'>
                         <Accordion as={Form.Field} panels={panels}/>
                     </Form>
+                        <Divider/>
+                        <Accordion panels={panelItem}/>
                 </Segment>
             </div>
         )

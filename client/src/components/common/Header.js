@@ -15,7 +15,6 @@ class Header extends Component{
         this.callRequest()
         .then( res => this.setState({session : res.session}))
         .catch(err => console.log(err))
-
     }
 
     callRequest = async () => {
