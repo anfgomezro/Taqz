@@ -41,16 +41,18 @@ class Header extends Component{
         let item_c = ''
         let item_si = ''
         let item_su = ''
+        let item_dash = ''
 
         if(this.state.session){
             item_logout = <Menu.Item name='log out'><Button onClick={this.logout} basic>Log Out</Button></Menu.Item>
+            item_dash = <Menu.Item name='dashboard'><Link className='myLink' to='/usr/dashboard'>DashBoard</Link></Menu.Item>
         }else{
             item_fq = <Menu.Item name='frequent questions' />
             item_gs = <Menu.Item name='get started' />
-            item_a = <Menu.Item ><Link to='/about'>About</Link></Menu.Item >   
+            item_a = <Menu.Item ><Link to='/about' className='myLink'>About</Link></Menu.Item >   
             item_c = <Menu.Item name='contact' />
-            item_si = <Menu.Item><Link to='/register'>Sign in</Link></Menu.Item>
-            item_su = <Menu.Item><Link to='/login'>Sign up</Link></Menu.Item>
+            item_si = <Menu.Item><Link to='/register' className='myLink'>Sign up</Link></Menu.Item>
+            item_su = <Menu.Item><Link to='/login' className='myLink'>Sign in</Link></Menu.Item>
         }
 
         return(
@@ -62,6 +64,7 @@ class Header extends Component{
                     Taqz
                     </Link>                    
                     </Menu.Item>
+                    {item_dash}
                     {item_gs}
                     {item_fq}
                     {item_a}

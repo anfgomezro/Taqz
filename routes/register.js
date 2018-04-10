@@ -22,7 +22,7 @@ router.post('/',function (req,res){
 
     if(errors){
         console.log('error body request')
-        res.send('Fatal')
+        res.json({errors : errors})
     } else {
 
         let newTax = new Tax({
@@ -42,7 +42,7 @@ router.post('/',function (req,res){
         })
 
         User.createUser(newUser)
-        res.send('Hi')
+        res.redirect('/login')
     }
 })
 

@@ -30,23 +30,23 @@ constructor(props){
                     <div className='field'>
                         <label>Type of vehicle</label>
                         <select className='ui selection dropdown' name='kind'>
-                            <option value="chevrolet">Chevrolet</option>
-                            <option value="ford" >Ford</option>
-                            <option value="honda" className='damit'>Honda</option>
+                            <option value="Chevrolet">Chevrolet</option>
+                            <option value="Ford" >Ford</option>
+                            <option value="Honda">Honda</option>
                             <option value="Hyundai" >Hyundai</option>
-                            <option value="kia" >Kia</option>
-                            <option value="mazda" >Mazda</option>
-                            <option value="nissan" >Nissan</option>
+                            <option value="Kia" >Kia</option>
+                            <option value="Mazda" >Mazda</option>
+                            <option value="Nissan" >Nissan</option>
                         </select>                        
                     </div>
                     <div className='field'>
                         <label>Brand of Vehicle</label>
                         <select name='brand' className='ui selection dropdown'>
-                            <option value="automovil">AutoMóvil</option>
-                            <option value="camioneta">Camioneta</option>
-                            <option value="doblecabina">Doblecabina</option>
-                            <option value="electrico">Electríco o Híbrido</option>
-                            <option value="motocicleta">Motocicleta</option>
+                            <option value="Automovil">AutoMóvil</option>
+                            <option value="Camioneta">Camioneta</option>
+                            <option value="Doblecabina">Doblecabina</option>
+                            <option value="Electrico">Electríco o Híbrido</option>
+                            <option value="Motocicleta">Motocicleta</option>
                         </select>
                     </div>   
                 </Form.Group>
@@ -60,9 +60,9 @@ constructor(props){
 
         let cards = this.state.properties.map( (vehicles) =>
             <Card 
-            header = {vehicles.brand}
-            meta = {vehicles.line}
-            description = {vehicles.cilinder}
+            header = {vehicles.line}
+            meta = {vehicles.brand}
+            description = {'Cilindraje : ' + vehicles.cilinder}
             />
         )
             

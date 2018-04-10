@@ -36,7 +36,7 @@ constructor(props){
 
     render (){
         return(
-            <div className='myContainer'>
+            <div className='myContainer--small'>
             <Message
               attached
               header='Welcome to our site!'

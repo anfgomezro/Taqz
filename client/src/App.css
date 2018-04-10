@@ -47,7 +47,10 @@
   margin: auto;
 }
 
-.damit {
-  color: red;
-  padding: 10px;
+.myLink {
+  color: purple
+}
+.myContainer--small{
+  width: 40%;
+  margin: auto;
 }
