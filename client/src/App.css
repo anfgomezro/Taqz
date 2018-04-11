@@ -51,7 +51,7 @@
   color: purple
 }
 .myContainer--small{
-  width: 40%;
+  width: 50%;
   margin: auto;
 }
 
@@ -61,4 +61,9 @@
 
 .space-bottom{
   padding-bottom: 2rem !important;
+}
+
+.myContainer--tiny{
+  width: 40%;
+  margin: auto;
 }

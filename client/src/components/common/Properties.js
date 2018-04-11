@@ -58,6 +58,14 @@ constructor(props){
             </div>
         )
 
+        const formRH = (
+            <div>
+                <Form.Input label='Identifier Name' placeholder='name' name='name' />
+                <Form.Input type='number' label='Property Valuation' placeholder='Property Valuation' name='valuation' step='0.01'/>
+                <Form.Checkbox name='bill' label='Do you receive digital bill?'/>
+                <Form.Button color='grey' content='Add' />
+            </div>
+        )
         let cards = this.state.properties.map( (vehicles) =>
             <Card 
             header = {vehicles.line}
@@ -66,7 +74,7 @@ constructor(props){
             />
         )
             
-        let view = (
+        let viewCars = (
                 <Card.Group>
                     {cards}
                 </Card.Group>
@@ -81,15 +89,15 @@ constructor(props){
 
         const panelsLand = [
             {
-                title: 'Add new Land',
-                content: { content: formCar, key: 'content' }
+                title: 'Add new Residential Housing',
+                content: { content: formRH, key: 'content' }
             }
         ]
 
         const panelItem = [
             {
-                title : 'View your properties',
-                content : { content : view ,key: 'content'}
+                title : 'View your vehicles',
+                content : { content : viewCars ,key: 'content'}
             }
         ]
 
