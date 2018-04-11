@@ -50,6 +50,7 @@
 .myLink {
   color: purple
 }
+
 .myContainer--small{
   width: 50%;
   margin: auto;
@@ -66,4 +67,14 @@
 .myContainer--tiny{
   width: 40%;
   margin: auto;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+.myContainer--right{
+  width: 70%;
+  padding-left: 20%;
 }

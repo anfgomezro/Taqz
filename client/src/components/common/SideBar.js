@@ -27,7 +27,7 @@ class SideBar extends Component{
                     <Link to='/usr/dashboard/calendar'>Calendar</Link>
                 </Menu.Item>
                 <Menu.Item name='taxes' active={activeItem === 'taxes'} onClick={this.handleClick}>
-                    Taxes
+                    <Link to='/usr/dashboard/taxes'>Taxes</Link>
                 </Menu.Item>
                 <Menu.Item name='history' active={activeItem === 'history'} onClick={this.handleClick}>
                     History
@@ -38,6 +38,7 @@ class SideBar extends Component{
                 <Menu.Item name='simulator' active={activeItem === 'simulator'} onClick={this.handleClick}>
                     Simulator
                 </Menu.Item>
+                <Link to='/usr/dashboard/properties'>Properties</Link>
                 <Menu.Item name='settings' active={activeItem === 'settings'} onClick={this.handleClick}>
                     Settings
                 </Menu.Item>
