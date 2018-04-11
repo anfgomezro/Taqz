@@ -72,10 +72,17 @@ constructor(props){
                 </Card.Group>
         )
 
-        const panels = [
+        const panelsCar = [
             {
                 title: 'Add new Vehicle',
                 content : {content : formCar, key: 'content'}
+            }
+        ]
+
+        const panelsLand = [
+            {
+                title: 'Add new Land',
+                content: { content: formCar, key: 'content' }
             }
         ]
 
@@ -87,13 +94,21 @@ constructor(props){
         ]
 
         return(
-            <div className='main--content'>
+            <div className='myContainer--small'>
                 <Segment>
                     <Form action='/add/car' method='post'>
-                        <Accordion as={Form.Field} panels={panels}/>
+                        <Accordion as={Form.Field} panels={panelsCar}/>
                     </Form>
                         <Divider/>
                         <Accordion panels={panelItem}/>
+                </Segment>
+                <Divider hidden />
+                <Segment>
+                    <Form action='/add/land' method='post'>
+                        <Accordion as={Form.Field} panels={panelsLand} />
+                    </Form>
+                    <Divider />
+                    <Accordion panels={panelItem} />
                 </Segment>
             </div>
         )

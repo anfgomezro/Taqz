@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Sidebar, Segment, Header, Button, Message, Icon } from 'semantic-ui-react';
-import { SideBar, CalendarTax, Properties } from './'
+import { Sidebar, Button, Icon } from 'semantic-ui-react';
+import { SideBar, CalendarTax, Properties, Base } from './'
 import { Switch, Route } from 'react-router-dom'
 
 class DashBoard extends Component{
@@ -8,22 +8,7 @@ class DashBoard extends Component{
         super(props);
         this.state = {
             visible: false,
-            name: ''
         }
-    }
-
-    componentWillMount() {
-        this.callRequest()
-            .then(res => this.setState({ name: res.name }))
-            .catch(err => console.log(err))
-    }
-
-    callRequest = async () => {
-        const response = await fetch('/usr/dashboard', {
-            credentials: 'include'
-        })
-        const body = await response.json()
-        return body
     }
 
     toggleMenu = () => {
@@ -40,14 +25,8 @@ class DashBoard extends Component{
                         <Switch>
                             <Route path='/usr/dashboard/properties' component={Properties} />
                             <Route path='/usr/dashboard/calendar' component={CalendarTax} />
+                            <Route path='/usr/dashboard' component={Base} />
                         </Switch>
-                        <Segment className='main--content' basic >
-                            <Header as='h3'>Application Content</Header>
-                            <Message positive>
-                                <Message.Header>{this.state.name}</Message.Header>
-                                <p>Welcome to<b> Taqz</b>. Getting Started</p>
-                            </Message>
-                        </Segment>
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>
             </div>

@@ -54,3 +54,11 @@
   width: 40%;
   margin: auto;
 }
+
+.space-top {
+  padding-top: 2rem !important;
+}
+
+.space-bottom{
+  padding-bottom: 2rem !important;
+}

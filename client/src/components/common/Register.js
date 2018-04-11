@@ -18,19 +18,11 @@ class Register extends Component {
     formData = () => {
         const {first_name, last_name, email, password, password2} = this.state
         let formData = new FormData()
-        let payload = {
-            'first_name' : first_name,
-            'last_name' : last_name,
-            'email' : email,
-            'password' : password,
-            'password2' : password2
-        }
         formData.append('first_name', first_name)
         formData.append('last_name', last_name)
         formData.append('email', email)
         formData.append('password',password)
         formData.append('password2',password2)
-        //formData.append('json', JSON.stringify(payload))
         return formData
     }
 
