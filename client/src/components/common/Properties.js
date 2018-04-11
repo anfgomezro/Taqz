@@ -5,12 +5,16 @@ class Properties extends Component {
 constructor(props){
     super(props)
     this.state = {
-        properties : []
+        vehicles : [],
+        lands : []
     }
 }
     componentWillMount(){
         this.callRequest()
-        .then(res => this.setState({properties : res.properties}))
+        .then(res => {
+            this.setState({vehicles : res.properties.vehicles})
+            this.setState({lands : res.properties.lands})
+        })
         .catch(err => console.log(err))
     }
 
@@ -66,18 +70,33 @@ constructor(props){
                 <Form.Button color='grey' content='Add' />
             </div>
         )
-        let cards = this.state.properties.map( (vehicles) =>
+
+        let cardC = this.state.vehicles.map( (vehicles) =>
             <Card 
             header = {vehicles.line}
             meta = {vehicles.brand}
             description = {'Cilindraje : ' + vehicles.cilinder}
             />
         )
+
+        let cardL = this.state.lands.map( (lands) => 
+            <Card
+            header = {lands.name}
+            meta = {(lands.bill) ? 'Receive digital bill ': 'Don´t receive digital bill'}
+            description = {'Property valuation : ' + lands.value}
+            />
+        )
             
         let viewCars = (
-                <Card.Group>
-                    {cards}
-                </Card.Group>
+            <Card.Group>
+                {cardC}
+            </Card.Group>
+        )
+
+        let viewLand = (
+            <Card.Group>
+                {cardL}
+            </Card.Group>
         )
 
         const panelsCar = [
@@ -94,10 +113,17 @@ constructor(props){
             }
         ]
 
-        const panelItem = [
+        const cardsCar = [
             {
                 title : 'View your vehicles',
                 content : { content : viewCars ,key: 'content'}
+            }
+        ]
+
+        const cardsLand = [
+            {
+                title: 'View your vehicles',
+                content: { content: viewLand, key: 'content' }
             }
         ]
 
@@ -108,7 +134,7 @@ constructor(props){
                         <Accordion as={Form.Field} panels={panelsCar}/>
                     </Form>
                         <Divider/>
-                        <Accordion panels={panelItem}/>
+                        <Accordion panels={cardsCar}/>
                 </Segment>
                 <Divider hidden />
                 <Segment>
@@ -116,7 +142,7 @@ constructor(props){
                         <Accordion as={Form.Field} panels={panelsLand} />
                     </Form>
                     <Divider />
-                    <Accordion panels={panelItem} />
+                    <Accordion panels={cardsLand} />
                 </Segment>
             </div>
         )
