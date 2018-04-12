@@ -22,7 +22,7 @@ constructor(props){
         const response = await fetch('/usr/properties', {
             credentials : 'include'
         })
-        const body = response.json()
+        const body = await response.json()
         return body
     }
 
