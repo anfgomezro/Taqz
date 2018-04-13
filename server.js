@@ -15,6 +15,7 @@ const MongoStore = require('connect-mongo')(session)
 const usr = require('./routes/usr')
 const auth = require('./routes/auth')
 const add =require('./routes/add')
+const unauthorized = require('./routes/unauthorized')
 
 require('./passport/passport')
 
@@ -39,11 +40,6 @@ app.get('/api/hello', (req, res) => {
   res.sendFile(__dirname + '/api/nav.json');
 });
 
-app.get('/shit', (req, res) => {
-  console.log('reshit')
-  res.send('shit')
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
@@ -65,13 +61,12 @@ app.use(expressValidator({
   }
 }));
 
-
 app.use('/register', register)
 app.use('/login', login)
 app.use('/logout', logout)
-app.use('/usr', passport.authenticate('jwt', { session: false }), usr)
-app.use('/auth', passport.authenticate('jwt', { session: false }), auth)
-app.use('/add', passport.authenticate('jwt', { session: false }), add)
-
+app.use('/unauthorized', unauthorized)
+app.use('/usr', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized'}), usr)
+app.use('/auth', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized' }), auth)
+app.use('/add', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized' }), add)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

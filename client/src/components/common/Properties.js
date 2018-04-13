@@ -12,8 +12,13 @@ constructor(props){
     componentWillMount(){
         this.callRequest()
         .then(res => {
-            this.setState({vehicles : res.properties.vehicles})
-            this.setState({lands : res.properties.lands})
+            if (res.status == 401){
+                console.log('bad')
+            }else{
+                this.setState({ vehicles: res.properties.vehicles })
+                this.setState({ lands: res.properties.lands })
+            }
+            
         })
         .catch(err => console.log(err))
     }
@@ -22,8 +27,14 @@ constructor(props){
         const response = await fetch('/usr/properties', {
             credentials : 'include'
         })
-        const body = await response.json()
-        return body
+        if (response.status == 401){
+            return response
+        }else {
+            const body = await response.json()
+            return body
+        }
+        
+        
     }
 
     render(){
@@ -122,7 +133,7 @@ constructor(props){
 
         const cardsLand = [
             {
-                title: 'View your vehicles',
+                title: 'View your properties',
                 content: { content: viewLand, key: 'content' }
             }
         ]

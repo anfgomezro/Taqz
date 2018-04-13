@@ -1,6 +1,6 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
-import {Home , Login, About, Response, Register, DashBoard} from './'
+import {Home , Login, About, Response, Register, DashBoard, Not} from './'
 
 function Main(props){
         return(

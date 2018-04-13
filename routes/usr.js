@@ -7,10 +7,8 @@ router.get('/dashboard', (req,res) =>{
 })
 
 router.get('/properties', (req,res) => {
-
     let vehicles = null
     let lands = null
-
     User.getUserById(req.user._id, function(err, user){
         vehicles = user.data.tax.vehicle
         lands = user.data.tax.land
