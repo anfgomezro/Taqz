@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Sidebar, Button, Icon } from 'semantic-ui-react';
-import { SideBar, CalendarTax, Properties, Base , Taxes, Income, Expense} from './'
+import { SideBar, CalendarTax, Properties, Base , Taxes, Income, Expense, Statistics} from './'
 import { Switch, Route } from 'react-router-dom'
 
 class DashBoard extends Component{
@@ -23,6 +23,7 @@ class DashBoard extends Component{
                     <SideBar action={this.state.visible} />
                     <Sidebar.Pusher className='main--content'>
                         <Switch>
+                            <Route path='/usr/dashboard/statistics' component={Statistics}/>
                             <Route path='/usr/dashboard/expenses' component={Expense}/>
                             <Route path='/usr/dashboard/incomes' component={Income}/>
                             <Route path='/usr/dashboard/properties' component={Properties} />

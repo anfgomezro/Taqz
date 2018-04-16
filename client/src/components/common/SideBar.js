@@ -13,10 +13,7 @@ class SideBar extends Component{
                 <Link className='anchor' to='/usr/dashboard/taxes'>Taxes</Link>
                 <Link className='anchor' to='/usr/dashboard/incomes'>Incomes</Link>            
                 <Link className='anchor' to='/usr/dashboard/expenses'>Expenses</Link>                            
-                <Menu.Item  name='simulator'>
-                    Simulator
-                </Menu.Item>
-                <Link className='anchor' to='/usr/dashboard/properties'>Settings</Link>
+                <Link className='anchor' to='/usr/dashboard/statistics'>Statistics</Link>
             </Sidebar>
         )
     }
