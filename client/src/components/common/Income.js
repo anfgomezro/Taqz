@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Header, Item, Card, Button, Grid, Form, Menu, Popup} from 'semantic-ui-react'
+import {Header, Feed, Card, Button, Form, Popup} from 'semantic-ui-react'
 
 class Income extends Component {
     constructor(props){
@@ -25,14 +25,25 @@ class Income extends Component {
 
     getinfoItem = (income) => {
         return income.items.map( (item) =>
-            <Item header={item.value} description={item.description} meta={item.date.toDateString()} />
+            <Feed.Event icon='dollar' date={(new Date(item.date)).toDateString()} summary={item.description + ' : ' + item.value} />
         ) 
     }
 
     render(){
 
         let info = this.state.incomes.map( (income) =>
-            <Card fluid header={income.name} content={this.getinfoItem(income)}/>
+            <Card fluid>
+                <Card.Content>
+                    <Card.Header>
+                        {income.name}
+                    </Card.Header>          
+                </Card.Content>
+                <Card.Content>
+                    <Feed>
+                    {this.getinfoItem(income)}
+                    </Feed>
+                </Card.Content>
+            </Card>
         )
 
         let form = this.state.incomes.map((income) =>
@@ -43,7 +54,7 @@ class Income extends Component {
             <div className='myContainer'>
                 <Header as='h3' content='Incomes' color='green'/>
                 {info}
-                <Popup trigger={<Button circular color='blue' floated='right' icon='add circle' />} flowing position='left center' hoverable>
+                <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' hoverable>
                     <Form action='/add/income' method='post'>
                         <div className='field'>
                             <label>Type of Income</label>

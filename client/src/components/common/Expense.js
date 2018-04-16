@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Item, Card, Button,Popup, Grid, Menu, Form} from 'semantic-ui-react'
+import { Header, Item, Card, Button,Popup, Form, Feed} from 'semantic-ui-react'
 
 class Expense extends Component {
     constructor(props) {
@@ -25,14 +25,25 @@ class Expense extends Component {
 
     getinfoItem = (expense) => {
         return expense.items.map((item) =>
-            <Item header={item.value} description={item.description} meta={item.date} />
+            <Feed.Event icon='currency' date={(new Date(item.date)).toDateString()} summary={item.description + ' : ' + item.value} />            
         )
     }
 
     render() {
 
         let info = this.state.expenses.map((expense) =>
-            <Card fluid header={expense.name} content={this.getinfoItem(expense)} />
+            <Card fluid>
+                <Card.Content>
+                    <Card.Header>
+                        {expense.name}
+                    </Card.Header>
+                </Card.Content>
+                <Card.Content>
+                    <Feed>
+                        {this.getinfoItem(expense)}
+                    </Feed>
+                </Card.Content>
+            </Card>
         )
 
         let form = this.state.expenses.map((expense) =>
@@ -43,8 +54,8 @@ class Expense extends Component {
             <div className='myContainer'>
                 <Header as='h3' content='Expenses' color='red' />
                 {info}
-                <Popup trigger={<Button circular color='blue' floated='right' icon='add circle' />} flowing position='left center' hoverable>
-                    <Form>
+                <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' hoverable>
+                    <Form action='/add/expense' method='post'>
                         <div className='field'>
                             <label>Type of Expense</label>
                             <select className='ui selection dropdown' name='type'>

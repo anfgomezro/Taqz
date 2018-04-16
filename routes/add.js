@@ -166,4 +166,38 @@ router.post('/income', (req,res) =>{
     }
 })
 
+router.post('/expense', (req,res) => {
+    let value = req.body.value
+    let type = req.body.type
+    let description = req.body.description
+
+    let errors = req.validationErrors()
+
+    if(errors){
+        res.send('error expense add')
+    }else{
+        let newItem = new Item({
+            value: value,
+            description: description,
+            date: new Date()
+        })
+
+        User.updateUser(req.user._id, function (err, doc) {
+            if (err) throw err
+            let arr = doc.data.expense
+            for (let i of arr) {
+                if (i.name == type) {
+                    i.items.push(newItem)
+                    break
+                }
+            }
+            doc.save(err => {
+                if (err) throw err
+            })
+        })
+
+        res.send('Added item')
+    }
+})
+
 module.exports = router 
