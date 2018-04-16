@@ -19,5 +19,20 @@ router.get('/properties', (req,res) => {
     })    
 })
 
+router.get('/incomes', (req,res) =>{
+    let incomes = null
+    User.getUserById(req.user._id, function(err, user){
+        incomes = user.data.income
+        res.json({incomes})
+    })
+})
+
+router.get('/expenses', (req, res) => {
+    let expenses = null
+    User.getUserById(req.user._id, function (err, user) {
+        expenses = user.data.expense
+        res.json({ expenses })
+    })
+})
 
 module.exports = router

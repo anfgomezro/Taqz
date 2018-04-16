@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const Tax = require('../models/taxes')
-
+const Cat = require('../models/cat')
 
 router.post('/',function (req,res){
     let first_name = req.body.first_name
@@ -31,13 +31,35 @@ router.post('/',function (req,res){
             rent : 0
         })
 
+        let  salary = new Cat({
+            name : 'Salary',
+            items : []
+        }) 
+
+        let food = new Cat({
+            name: 'Food',
+            items : []
+        })
+
+        let transport = new Cat({
+            name : 'Transport',
+            items : []
+        })
+
+        let entertainment = new Cat({
+            name: 'Entertainment',
+            items : []
+        })
+
         let newUser = new User({
             first_name : first_name,
             last_name : last_name,
             email : email,
             password : password,
             data : {
-                tax : newTax
+                tax : newTax,
+                income : [salary],
+                expense: [food, transport, entertainment]
             }
         })
 

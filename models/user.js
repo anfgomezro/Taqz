@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const Tax = require('./taxes')
+const Cat = require('./cat')
 
 var UserSchema = mongoose.Schema({
     first_name  : String,
@@ -11,7 +12,9 @@ var UserSchema = mongoose.Schema({
     },
     password    : String,
     data : {
-        tax : Tax.schema
+        tax : Tax.schema,
+        income : [Cat.schema],
+        expense : [Cat.schema]
     }
 })
 

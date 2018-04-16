@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Item, List, Button, Card, Icon} from 'semantic-ui-react'
+import {Item, List,Card, Icon} from 'semantic-ui-react'
 import auto from './images/auto.png'
 import casa from './images/casa.jpg'
 import money from './images/money.jpeg'

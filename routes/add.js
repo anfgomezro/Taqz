@@ -4,6 +4,7 @@ const Vehicle = require('../models/vehicle')
 const User = require('../models/user')
 const Tax = require('../models/taxes')
 const Land = require('../models/land')
+const Item = require('../models/item')
 
 router.post('/car', (req,res) => {
     let brand = req.body.brand
@@ -128,6 +129,40 @@ router.post('/land', (req,res) => {
         })
 
         res.send('added land')
+    }
+})
+
+router.post('/income', (req,res) =>{
+    let value = req.body.value
+    let type = req.body.type
+    let description = req.body.description
+
+    let errors = req.validationErrors()
+
+    if(errors){
+        res.send('error income add')
+    }else{
+        let newItem = new Item({
+            value : value,
+            description : description,
+            date : new Date()
+        })
+
+        User.updateUser(req.user._id, function(err,doc){
+            if(err) throw err
+            let arr = doc.data.income
+            for(let i of arr){
+                if(i.name == type){
+                    i.items.push(newItem)
+                    break
+                }
+            }
+            doc.save( err =>{
+                if (err) throw err
+            })   
+        })
+
+        res.send('Added item')
     }
 })
 
