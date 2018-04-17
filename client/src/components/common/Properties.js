@@ -1,24 +1,23 @@
 import React, {Component} from 'react'
-import { Segment, Accordion, Form, Card, Divider } from 'semantic-ui-react'
+import { Segment, Accordion, Form, Card, Divider, Button, Popup, Message} from 'semantic-ui-react'
 
 class Properties extends Component {
 constructor(props){
     super(props)
     this.state = {
         vehicles : [],
-        lands : []
+        lands : [], 
+        value : 0,
+        check : '',
+        name : '', 
+        status : false
     }
 }
     componentWillMount(){
         this.callRequest()
         .then(res => {
-            if (res.status == 401){
-                console.log('bad')
-            }else{
                 this.setState({ vehicles: res.properties.vehicles })
                 this.setState({ lands: res.properties.lands })
-            }
-            
         })
         .catch(err => console.log(err))
     }
@@ -27,17 +26,106 @@ constructor(props){
         const response = await fetch('/usr/properties', {
             credentials : 'include'
         })
-        if (response.status == 401){
-            return response
-        }else {
             const body = await response.json()
             return body
+    }
+
+    serialize = (form) => {
+        let arr = []
+        for (let i of form) {
+            let a = i[0] + '=' + encodeURIComponent(i[1])
+            arr.push(a)
         }
-        
-        
+        return arr.join('&').replace(/%20/g, '+')
+    }
+
+    editLand = async () =>{
+        let headers = new Headers()
+        headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
+        headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        let form = new FormData()
+        form.append('name',this.state.name)
+        form.append('valuation', this.state.value)
+        form.append('bill',this.state.check)
+        form.append('id',)
+        fetch('/edit/land',{
+            method: 'post',
+            headers,
+            body: this.serialize(form)
+        })
+        .then(res =>{
+            return res.json()
+        })
+        .then(res => this.setState({statusUpdate : res.status}))
+        .catch(err => console.log(err))
+    }
+
+    changeCheck = (event) => this.setState({check : event.target.value})
+    changeName = (event) => this.setState({ name: event.target.value })
+    changeValue = (event) => this.setState({ value: event.target.value })
+
+    removeLand = (e,{id}) => {
+        let headers = new Headers()
+        headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
+        headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        let form = new FormData()
+        form.append('id', id)
+        fetch('/remove/land', {
+            credentials:'include',
+            method: 'post',
+            headers,
+            body: this.serialize(form)
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                this.setState({ status: res.status })
+                this.setState({ lands: res.lands})
+            })
+            .catch(err => console.log(err))
+    }
+
+    removeVehicle = (e, { id }) => {
+        let headers = new Headers()
+        headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
+        headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        let form = new FormData()
+        form.append('id', id)
+        fetch('/remove/vehicle', {
+            credentials: 'include',
+            method: 'post',
+            headers,
+            body: this.serialize(form)
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                this.setState({ status: res.status })
+                this.setState({ vehicles : res.vehicles})
+            })
+            .catch(err => console.log(err))
     }
 
     render(){
+
+        const formLand = (
+            <div>
+                <Form.Input label='Identifier Name' placeholder='Name' name='name' value={this.state.name} onChange={this.changeName}/>
+                <Form.Input type='number' label='Property Valuation' placeholder='Property Valuation' name='valuation' value={this.state.value} onChange={this.changeValue} />
+                <Form.Checkbox name='bill' label='Do you receive digital bill?' value={this.state.check} onChange={this.changeCheck}/>
+                <Form.Button color='purple' content='Add' onClick={this.editLand}/>
+            </div>
+        )
+
+        let editLand = (
+            <Popup trigger={<Button compact content='Edit' icon='setting' color='blue'/>} flowing position='right center' hoverable>
+                <Form>
+                    {formLand}
+                </Form>
+            </Popup>
+        )
 
         const formCar = (
             <div>
@@ -73,20 +161,12 @@ constructor(props){
             </div>
         )
 
-        const formRH = (
-            <div>
-                <Form.Input label='Identifier Name' placeholder='name' name='name' />
-                <Form.Input type='number' label='Property Valuation' placeholder='Property Valuation' name='valuation' step='0.01'/>
-                <Form.Checkbox name='bill' label='Do you receive digital bill?'/>
-                <Form.Button color='grey' content='Add' />
-            </div>
-        )
-
         let cardC = this.state.vehicles.map( (vehicles) =>
             <Card 
             header = {vehicles.line}
             meta = {vehicles.brand}
             description = {'Cilindraje : ' + vehicles.cilinder}
+            extra = {<Button id={vehicles._id} content='Remove' icon='setting' color='red' onClick={this.removeVehicle} />}
             />
         )
 
@@ -95,6 +175,7 @@ constructor(props){
             header = {lands.name}
             meta = {(lands.bill) ? 'Receive digital bill ': 'Don´t receive digital bill'}
             description = {'Property valuation : ' + lands.value}
+            extra={<Button id={lands._id} content='Remove' icon='setting' color='red' onClick={this.removeLand} />}
             />
         )
             
@@ -120,7 +201,7 @@ constructor(props){
         const panelsLand = [
             {
                 title: 'Add new Residential Housing',
-                content: { content: formRH, key: 'content' }
+                content: { content: formLand, key: 'content' }
             }
         ]
 
@@ -153,8 +234,13 @@ constructor(props){
                         <Accordion as={Form.Field} panels={panelsLand} />
                     </Form>
                     <Divider />
-                    <Accordion panels={cardsLand} />
+                    <Accordion panels={cardsLand}/>
                 </Segment>
+                <Message
+                    hidden={!this.state.status}
+                    positive
+                    content='Your heve delete one element'
+                />
             </div>
         )
     }

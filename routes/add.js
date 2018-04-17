@@ -25,7 +25,7 @@ router.post('/car', (req,res) => {
             cilinder : engine
         })
 
-        User.updateUser(req.user._id, function(err, doc){
+        User.getUserById(req.user._id, function(err, doc){
             if (err) throw err
             doc.data.tax.vehicle.push(newVehicle)
             doc.save((err) => {
@@ -120,7 +120,7 @@ router.post('/land', (req,res) => {
             cost : getCost(value)
         })
 
-        User.updateUser(req.user._id, function(err, doc){
+        User.getUserById(req.user._id, function(err, doc){
             if(err) throw err
             doc.data.tax.land.push(newLand)
             doc.save( err => {
@@ -148,7 +148,7 @@ router.post('/income', (req,res) =>{
             date : new Date()
         })
 
-        User.updateUser(req.user._id, function(err,doc){
+        User.getUserById(req.user._id, function(err,doc){
             if(err) throw err
             let arr = doc.data.income
             for(let i of arr){
@@ -182,7 +182,7 @@ router.post('/expense', (req,res) => {
             date: new Date()
         })
 
-        User.updateUser(req.user._id, function (err, doc) {
+        User.getUserById(req.user._id, function (err, doc) {
             if (err) throw err
             let arr = doc.data.expense
             for (let i of arr) {
