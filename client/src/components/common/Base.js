@@ -27,7 +27,7 @@ class Base extends Component {
         return(
             <Segment className='main--content' basic >
                 <Header as='h3'>Application Content</Header>
-                <Message positive>
+                <Message color='yellow'>
                     <Message.Header>{this.state.name}</Message.Header>
                     <p>Welcome to<b> Taqz</b>. Getting Started</p>
                 </Message>

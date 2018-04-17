@@ -46,4 +46,50 @@ router.post('/vehicle', (req, res) => {
     }
 })
 
+router.post('/expense', (req, res) => {
+    let id = req.body.id
+    let idt = req.body.idt
+
+    let errors = req.validationErrors()
+
+    if (errors) {
+        res.json({ errors })
+    } else {
+        let expenses = null
+        User.getUserById(req.user._id, function (err, doc) {
+            if (err) throw err
+            doc.data.expense.id(idt).items.pull(id)
+            expenses = doc.data.expense
+            doc.save(err => {
+                if (err) throw err
+            })
+            res.json({ status: true, expenses })
+        })
+
+    }
+})
+
+router.post('/income', (req, res) => {
+    let id = req.body.id
+    let idt = req.body.idt
+
+    let errors = req.validationErrors()
+
+    if (errors) {
+        res.json({ errors })
+    } else {
+        let incomes = null
+        User.getUserById(req.user._id, function (err, doc) {
+            if (err) throw err
+            doc.data.income.id(idt).items.pull(id)
+            incomes = doc.data.income
+            doc.save(err => {
+                if (err) throw err
+            })
+            res.json({ status: true, incomes })
+        })
+
+    }
+})
+
 module.exports = router

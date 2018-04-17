@@ -69,9 +69,7 @@ app.use('/unauthorized', unauthorized)
 app.use('/usr', passport.authenticate('jwt', { session: false}), usr)
 app.use('/auth', passport.authenticate('jwt', { session: false}), auth)
 app.use('/add', passport.authenticate('jwt', { session: false}), add)
-<<<<<<< HEAD
 app.use('/remove', passport.authenticate('jwt', { session: false}), remove)
-=======
->>>>>>> ce4869ea1e1f23cf2019603de6c69ff37884f367
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {Header, Feed, Card, Button, Form, Popup} from 'semantic-ui-react'
+import {Header, Feed, Card, Button, Form, Popup, Grid, Message} from 'semantic-ui-react'
 
 class Income extends Component {
     constructor(props){
         super(props)
         this.state = {
-            incomes : []
+            incomes : [], 
+            status : false
         }
     }
 
@@ -23,9 +24,50 @@ class Income extends Component {
         return body
     }
 
+    serialize = (form) => {
+        let arr = []
+        for (let i of form) {
+            let a = i[0] + '=' + encodeURIComponent(i[1])
+            arr.push(a)
+        }
+        return arr.join('&').replace(/%20/g, '+')
+    }
+
+    remove = (e, { id, idt }) => {
+        let headers = new Headers()
+        headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
+        headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        let form = new FormData()
+        form.append('id', id)
+        form.append('idt', idt)
+        fetch('/remove/income', {
+            credentials: 'include',
+            method: 'post',
+            headers,
+            body: this.serialize(form)
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                this.setState({ status: res.status })
+                this.setState({ incomes: res.incomes })
+            })
+            .catch(err => console.log(err))
+    }
+
     getinfoItem = (income) => {
         return income.items.map( (item) =>
-            <Feed.Event icon='dollar' date={(new Date(item.date)).toDateString()} summary={item.description + ' : ' + item.value} />
+            <Grid>
+                <Grid.Column width={5}>
+                    <Feed>
+                        <Feed.Event icon='dollar' date={(new Date(item.date)).toDateString()} summary={item.description + ' : ' + item.value} />
+                    </Feed>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                    <Button id={item._id} idt={income._id} size='mini' content='Remove' icon='remove' color='red' onClick={this.remove} />
+                </Grid.Column>
+            </Grid>
         ) 
     }
 
@@ -39,9 +81,7 @@ class Income extends Component {
                     </Card.Header>          
                 </Card.Content>
                 <Card.Content>
-                    <Feed>
                     {this.getinfoItem(income)}
-                    </Feed>
                 </Card.Content>
             </Card>
         )
@@ -67,6 +107,11 @@ class Income extends Component {
                         <Form.Button color='purple' content='Submit' />
                     </Form>
                 </Popup>
+                <Message
+                    hidden={!this.state.status}
+                    positive
+                    content='Your heve delete one element'
+                />
             </div>
         )
     }
