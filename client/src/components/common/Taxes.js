@@ -26,6 +26,7 @@ class Taxes extends Component{
         const response = await fetch('/usr/properties', {
             credentials : 'include'
         })
+        console.log(response)
         const body = await response.json()
         return body
     }  

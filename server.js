@@ -65,8 +65,8 @@ app.use('/register', register)
 app.use('/login', login)
 app.use('/logout', logout)
 app.use('/unauthorized', unauthorized)
-app.use('/usr', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized'}), usr)
-app.use('/auth', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized' }), auth)
-app.use('/add', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized' }), add)
+app.use('/usr', passport.authenticate('jwt', { session: false}), usr)
+app.use('/auth', passport.authenticate('jwt', { session: false}), auth)
+app.use('/add', passport.authenticate('jwt', { session: false}), add)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

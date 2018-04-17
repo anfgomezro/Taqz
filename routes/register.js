@@ -21,8 +21,8 @@ router.post('/',function (req,res){
     let errors = req.validationErrors()
 
     if(errors){
-        console.log('error body request')
-        res.json({errors : errors})
+        console.log(errors)
+        res.json({errors})
     } else {
 
         let newTax = new Tax({
