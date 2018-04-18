@@ -5,6 +5,7 @@ const User = require('../models/user')
 const Tax = require('../models/taxes')
 const Land = require('../models/land')
 const Item = require('../models/item')
+const Cat = require('../models/cat')
 
 router.post('/car', (req,res) => {
     let brand = req.body.brand
@@ -197,6 +198,31 @@ router.post('/expense', (req,res) => {
         })
 
         res.send('Added item')
+    }
+})
+
+router.post('/catIncome', (req,res) =>{
+    let name = req.body.name
+
+    let errors = req.validationErrors()
+
+    if(errors){
+        res.json({errors})
+    }else{
+        let newCat = new Cat({
+            name : name,
+            items : []
+        })
+        let incomes = null
+        User.getUserById(req.user._id, function(err,doc){
+            if(err) throw err
+            doc.data.income.push(newCat)
+            incomes = doc.data.income
+            doc.save( err =>{
+                if (err) throw err
+            })
+            res.json({status : true, incomes })
+        })
     }
 })
 

@@ -6,7 +6,9 @@ class Income extends Component {
         super(props)
         this.state = {
             incomes : [], 
-            status : false
+            status : false,
+            nameCat : '', 
+            statusCat : false
         }
     }
 
@@ -71,6 +73,30 @@ class Income extends Component {
         ) 
     }
 
+    changeNameNewCat = (e) => this.setState({nameCat : e.target.value})
+
+    addCat = () => {
+        let headers = new Headers()
+        headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
+        headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        let form = new FormData()
+        form.append('name', this.state.nameCat)
+        fetch('/add/catIncome', {
+            credentials: 'include',
+            method: 'post',
+            headers,
+            body: this.serialize(form)
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                this.setState({ statusCat : res.status })
+                this.setState({ incomes : res.incomes })
+            })
+            .catch(err => console.log(err))
+    }
+
     render(){
 
         let info = this.state.incomes.map( (income) =>
@@ -94,6 +120,12 @@ class Income extends Component {
             <div className='myContainer'>
                 <Header as='h3' content='Incomes' color='green'/>
                 {info}
+                <Popup trigger={<Button compact color='teal' content='Add new category' floated='left' />} flowing position='right center' on='click'>
+                    <Form>
+                        <Form.Input label='Category Name' type='text' placeholder='Name' name='name' value={this.state.nameCat} onChange={this.changeNameNewCat}/>
+                        <Button color='purple' content='Add Category' onClick={this.addCat}/>
+                    </Form>
+                </Popup>
                 <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' hoverable>
                     <Form action='/add/income' method='post'>
                         <div className='field'>
@@ -104,13 +136,18 @@ class Income extends Component {
                         </div>
                         <Form.Input label='Description' placeholder='Description' name='description' />
                         <Form.Input label='Value' type='number' placeholder='Value' name='value' />
-                        <Form.Button color='purple' content='Submit' />
+                        <Form.Button color='purple' content='Add Income' />
                     </Form>
                 </Popup>
                 <Message
                     hidden={!this.state.status}
                     positive
                     content='Your heve delete one element'
+                />
+                <Message
+                    hidden={!this.state.statusCat}
+                    positive
+                    content='Your heve Add new Category'
                 />
             </div>
         )
