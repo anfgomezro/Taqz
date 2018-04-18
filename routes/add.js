@@ -12,11 +12,24 @@ const mysql = require('mysql')
 router.post('/car', (req,res) => {
     let kind = req.body.kind
     let line = req.body.line
+    let clase = ''
 
     let errors = req.validationErrors()
 
+    if (kind =='automoviles'){
+        clase = 'Automovil'
+    } else if (kind =='camionetas'){
+        clase= 'Camioneta'
+    } else if (kind =='doblecabina'){
+        clase = 'Doblecabina'
+    } else if (kind == 'electricos'){
+        clase = 'Electríco'
+    }else{
+        clase = 'Motocicleta'
+    }
+
     if(errors){
-        res.send('Fatal')
+        res.json({errors})
     } else {
 
         const connection = mysql.createConnection({
@@ -37,23 +50,23 @@ router.post('/car', (req,res) => {
                 cost = result[0].A2017
                 
                 let newVehicle = new Vehicle({
-                    class: kind,
+                    class: clase,
                     line: line,
                     cost: cost
-
                 })
 
                 User.getUserById(req.user._id, function (err, doc) {
                     if (err) throw err
                     doc.data.tax.vehicle.push(newVehicle)
+                    let vehicles = doc.data.tax.vehicle
                     doc.save((err) => {
                         if (err) throw err
                     })
+                    res.json({ status: true , vehicles})
                 })
             })
         })
 
-        res.send('fine')
     }
 })
 
@@ -122,7 +135,7 @@ getCost = (value) => {
 }
 
 router.post('/land', (req,res) => {
-    let value = req.body.valuation
+    let value = req.body.value
     let bill = req.body.bill
     let name = req.body.name
     let cost = 0
@@ -130,7 +143,7 @@ router.post('/land', (req,res) => {
     let errors = req.validationErrors()
 
     if(errors){
-        res.send('error land added')
+        res.json({errors})
     } else {
 
         let newLand = new Land({
@@ -143,12 +156,12 @@ router.post('/land', (req,res) => {
         User.getUserById(req.user._id, function(err, doc){
             if(err) throw err
             doc.data.tax.land.push(newLand)
+            let lands = doc.data.tax.land
             doc.save( err => {
                 if(err) throw err
             })
+            res.json({status : true, lands})
         })
-
-        res.send('added land')
     }
 })
 

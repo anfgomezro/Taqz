@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 
 router.post('/',
-    passport.authenticate('local', { session: false }), 
+    passport.authenticate('local', { session: false, failureRedirect: '/login'}), 
     (req,res) => {
         const token = jwt.sign(req.user.toJSON(), 'secret');
         res.cookie('token',token,{expires: new Date(Date.now() + 7200000)})
