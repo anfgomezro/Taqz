@@ -13,17 +13,22 @@ class CalendarTax extends Component{
     onChange = value => this.setState({value})
 
     handleClickDay = (value) => {
-        alert('day is : ' + value)
+        alert(' The day is : ' + value.toDateString())
     }
+
+    dateProBef = () => this.setState({ value: new Date("April 6, 2018")})
+    dateProAft = () => this.setState({ value: new Date("June 15, 2018") })
+    dateVeBef = () => this.setState({ value: new Date("May 4, 2018") })
+    dateVeAft = () => this.setState({ value: new Date("June 22, 2018") })
 
     render(){
         const {value} = this.state
         
         return(
             <Grid centered className='main--content space-bottom'>
-                <Grid.Column width={5}>
-                    <Header as='h3' color='orange'>Important Dates</Header>
-                    <Card>
+                <Grid.Column width={7} floated='right'>
+                    <Header as='h2' color='orange'>Important Dates</Header>
+                    <Card centered>
                         <Card.Content>
                             <Card.Header>
                                 Property Tax
@@ -36,25 +41,25 @@ class CalendarTax extends Component{
                                 <Feed>
                                     <Feed.Event
                                         icon='thumbs up'
-                                        date='6 April'
-                                        summary="Pay with discount"
+                                        date='Pay with discount'
+                                        summary="6 April 2018"
                                     />
-                                    <Button basic color='blue'>View on calendar</Button>
+                                    <Button basic color='blue' onClick={this.dateProBef}>View on calendar</Button>
                                     <Divider />
                                     <Feed.Event
                                         icon='thumbs down'
-                                        date='15 Jun'
-                                        summary="Pay without discount"
+                                        date='Pay without discount'
+                                        summary="15 Jun 2018"
                                     />
-                                    <Button basic color='blue'>View on calendar</Button>
+                                    <Button basic color='blue' onClick={this.dateProAft}>View on calendar</Button>
                                 </Feed>
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                            <Button basic fluid color='green'>Pay</Button>
+                            <Button basic color='green' content={<a target="_blank" className='myLink' href='https://oficinavirtual.shd.gov.co/Tareaps/TaxPayment.jsp'>Pay</a>} />
                         </Card.Content>
                     </Card>
-                    <Card>
+                    <Card centered>
                         <Card.Content>
                             <Card.Header>
                                 Vehicle Tax
@@ -67,26 +72,27 @@ class CalendarTax extends Component{
                                 <Feed>
                                     <Feed.Event
                                         icon='thumbs up'
-                                        date='4 May'
-                                        summary="Pay with discount"
+                                        date='Pay with discount'
+                                        summary="4 May 2018"
                                     />
-                                        <Button basic color='blue'>View on calendar</Button>
+                                        <Button basic color='blue' onClick={this.dateVeBef}>View on calendar</Button>
                                     <Divider/>
                                     <Feed.Event
                                         icon='thumbs down'
-                                        date='22 Jun'
-                                        summary="Pay without discount"
+                                        date='Pay without discount'
+                                        summary="22 Jun 2018"
                                     />
-                                        <Button basic color='blue'>View on calendar</Button>
+                                        <Button basic color='blue' onClick={this.dateVeAft}>View on calendar</Button>
                                 </Feed>
                             </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-                                <Button basic fluid color='green'>Pay</Button>
+                            <Button basic  color='green' content={<a target="_blank" className='myLink' href='https://oficinavirtual.shd.gov.co/Tareaps/TaxPayment.jsp'>Pay</a>}/>
                         </Card.Content>
                     </Card>
                     </Grid.Column>
-                    <Grid.Column width={6}>
+                    <Grid.Column width={6} floated='left'>
+                    <Header as='h4' color='orange'>Check This!</Header>
                         <Calendar className='myContainer sticky' 
                             onChange={this.onChange}
                             showWeekNumbers
