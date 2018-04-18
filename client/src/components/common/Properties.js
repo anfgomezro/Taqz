@@ -129,43 +129,26 @@ constructor(props){
 
         const formCar = (
             <div>
-                <Form.Group unstackable widths={2}>
-                    <div className='field'>
-                        <label>Type of vehicle</label>
-                        <select className='ui selection dropdown' name='kind'>
-                            <option value="Chevrolet">Chevrolet</option>
-                            <option value="Ford" >Ford</option>
-                            <option value="Honda">Honda</option>
-                            <option value="Hyundai" >Hyundai</option>
-                            <option value="Kia" >Kia</option>
-                            <option value="Mazda" >Mazda</option>
-                            <option value="Nissan" >Nissan</option>
-                        </select>                        
-                    </div>
                     <div className='field'>
                         <label>Brand of Vehicle</label>
-                        <select name='brand' className='ui selection dropdown'>
-                            <option value="Automovil">AutoMóvil</option>
-                            <option value="Camioneta">Camioneta</option>
-                            <option value="Doblecabina">Doblecabina</option>
-                            <option value="Electrico">Electríco o Híbrido</option>
-                            <option value="Motocicleta">Motocicleta</option>
+                        <select name='kind' className='ui selection dropdown'>
+                            <option value="automoviles">AutoMóvil</option>
+                            <option value="camionetas">Camioneta</option>
+                            <option value="doblecabina">Doblecabina</option>
+                            <option value="electricos">Electríco o Híbrido</option>
+                            <option value="motos">Motocicleta</option>
                         </select>
                     </div>   
-                </Form.Group>
-                <Form.Group widths={2}>
-                    <Form.Input label='Line' placeholder='Line' name='line'/>
-                    <Form.Input label='Engine' placeholder='Engine' name='engine'/>
-                </Form.Group>
+                    <Form.Input fluid label='Line' placeholder='Line' name='line'/>
                 <Form.Button color='grey' content='Add'/>
             </div>
         )
 
         let cardC = this.state.vehicles.map( (vehicles) =>
             <Card 
-            header = {vehicles.line}
-            meta = {vehicles.brand}
-            description = {'Cilindraje : ' + vehicles.cilinder}
+            header = {vehicles.class}
+            meta = {'Your vehicle'}
+            description = {vehicles.line}
             extra = {<Button id={vehicles._id} content='Remove' icon='setting' color='red' onClick={this.removeVehicle} />}
             />
         )

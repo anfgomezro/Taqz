@@ -126,7 +126,7 @@ class Income extends Component {
                         <Button color='purple' content='Add Category' onClick={this.addCat}/>
                     </Form>
                 </Popup>
-                <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' hoverable>
+                <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' on='click'>
                     <Form action='/add/income' method='post'>
                         <div className='field'>
                             <label>Type of Income</label>

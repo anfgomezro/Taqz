@@ -6,12 +6,12 @@ const Tax = require('../models/taxes')
 const Land = require('../models/land')
 const Item = require('../models/item')
 const Cat = require('../models/cat')
+const mysql = require('mysql')
+
 
 router.post('/car', (req,res) => {
-    let brand = req.body.brand
     let kind = req.body.kind
     let line = req.body.line
-    let engine = req.body.engine
 
     let errors = req.validationErrors()
 
@@ -19,18 +19,37 @@ router.post('/car', (req,res) => {
         res.send('Fatal')
     } else {
 
-        let newVehicle = new Vehicle({
-            class : kind,
-            brand : brand,
-            line : line,
-            cilinder : engine
+        const connection = mysql.createConnection({
+            host : 'localhost',
+            user : 'root',
+            password : 'pass',
+            database : 'vehiculos'
         })
 
-        User.getUserById(req.user._id, function(err, doc){
-            if (err) throw err
-            doc.data.tax.vehicle.push(newVehicle)
-            doc.save((err) => {
-                if(err) throw err
+        let query = 'SELECT A2017 FROM '+ kind +' WHERE linea=\''+line+'\';'
+        var cost = 0
+
+        connection.connect(function (err){
+            if(err)throw err
+            console.log('connected to mysql')
+            connection.query(query, function(err,result){
+                if (err) throw err
+                cost = result[0].A2017
+                
+                let newVehicle = new Vehicle({
+                    class: kind,
+                    line: line,
+                    cost: cost
+
+                })
+
+                User.getUserById(req.user._id, function (err, doc) {
+                    if (err) throw err
+                    doc.data.tax.vehicle.push(newVehicle)
+                    doc.save((err) => {
+                        if (err) throw err
+                    })
+                })
             })
         })
 
@@ -222,6 +241,31 @@ router.post('/catIncome', (req,res) =>{
                 if (err) throw err
             })
             res.json({status : true, incomes })
+        })
+    }
+})
+
+router.post('/catExpense', (req, res) => {
+    let name = req.body.name
+
+    let errors = req.validationErrors()
+
+    if (errors) {
+        res.json({ errors })
+    } else {
+        let newCat = new Cat({
+            name: name,
+            items: []
+        })
+        let expenses = null
+        User.getUserById(req.user._id, function (err, doc) {
+            if (err) throw err
+            doc.data.expense.push(newCat)
+            expenses = doc.data.expense
+            doc.save(err => {
+                if (err) throw err
+            })
+            res.json({ status: true, expenses })
         })
     }
 })

@@ -57,6 +57,30 @@ class Taxes extends Component{
             </List.Item>
         )
 
+        let valueVehicle = this.state.vehicles.map ( (vehicle) =>
+            <List.Item>
+                <List.Content>
+                    <Card fluid>
+                        <Card.Content>
+                            <Card.Header>{vehicle.line}</Card.Header>
+                        </Card.Content>
+                        <Card.Content>
+                            <List>
+                                <List.Item>
+                                    <Icon name='car' color='brown' />
+                                    {' You have to pay '+vehicle.cost*0.9+'$ before 4 may '}
+                                </List.Item>
+                                <List.Item>
+                                    <Icon name='car' color='brown' />
+                                    {' You have to pay ' + vehicle.cost+ '$'}
+                                </List.Item>
+                            </List>
+                        </Card.Content>
+                    </Card>
+                </List.Content>
+            </List.Item>
+    )
+
         return(
             <Item.Group className='myContainer--right'>
                 <Item>
@@ -65,6 +89,7 @@ class Taxes extends Component{
                         <Item.Header>Vehicle Tax</Item.Header>
                         <Item.Description>
                             <List divided animated verticalAlign='middle'>
+                                {valueVehicle}
                             </List>
                         </Item.Description>
                     </Item.Content>
@@ -76,16 +101,6 @@ class Taxes extends Component{
                         <Item.Description>
                             <List divided animated verticalAlign='middle'>
                                 {valueLand}
-                            </List>
-                        </Item.Description>
-                    </Item.Content>
-                </Item>
-                <Item>
-                    <Item.Image size='small' src={money} />
-                    <Item.Content>
-                        <Item.Header>Income Tax</Item.Header>
-                        <Item.Description>
-                            <List divided animated verticalAlign='middle'>
                             </List>
                         </Item.Description>
                     </Item.Content>
