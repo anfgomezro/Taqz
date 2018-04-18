@@ -8,7 +8,11 @@ class Expense extends Component {
             expenses : [], 
             status : false,
             nameCat : '',
-            statusCat : true
+            statusCat : false,
+            statusAddItem : false, 
+            descriptiom : '',
+            value : 0,
+            type : 'Food'
         }
     }
 
@@ -54,6 +58,8 @@ class Expense extends Component {
             .then(res => {
                 this.setState({ status : res.status })
                 this.setState({ expenses : res.expenses })
+                this.setState({ statusAddItem : false})
+                this.setState({ statusCat : false})
             })
             .catch(err => console.log(err))  
     }
@@ -75,6 +81,9 @@ class Expense extends Component {
 
 
     changeNameNewCat = (e) => this.setState({ nameCat: e.target.value })
+    changeDes = (e) => this.setState({ description: e.target.value })
+    changeValue = (e) => this.setState({ value: e.target.value })
+    changeType = (e) => this.setState({ type: e.target.value })
 
     addCat = () => {
         let headers = new Headers()
@@ -94,8 +103,41 @@ class Expense extends Component {
             .then(res => {
                 this.setState({ statusCat: res.status })
                 this.setState({ expenses: res.expenses })
+                this.setState({statusAddItem : false})
+                this.setState({ status : false})
             })
             .catch(err => console.log(err))
+    }
+
+    addItem = () => {
+        let headers = new Headers()
+        headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
+        headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        let form = new FormData()
+        form.append('value', this.state.value)
+        form.append('description', this.state.description)
+        form.append('type', this.state.type)
+        fetch('/add/expense', {
+            credentials: 'include',
+            method: 'post',
+            headers,
+            body: this.serialize(form)
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                this.setState({ statusAddItem: res.status })
+                this.setState({ expenses: res.expenses })
+                this.setState({status : false})
+                this.setState( {statusCat : false})
+            })
+            .catch(err => console.log(err))
+    }
+
+    deleteData = () => {
+        this.setState({ value: 0 })
+        this.setState({ description: '' })
     }
 
     render() {
@@ -127,28 +169,36 @@ class Expense extends Component {
                         <Button color='purple' content='Add Category' onClick={this.addCat} />
                     </Form>
                 </Popup>
-                <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' hoverable>
-                    <Form action='/add/expense' method='post'>
+                <Popup trigger={<Button circular color='blue' floated='right' icon='add' />} flowing position='left center' on='click' onUnmount={this.deleteData}>
+                    <Form>
                         <div className='field'>
                             <label>Type of Expense</label>
-                            <select className='ui selection dropdown' name='type'>
+                            <select className='ui selection dropdown' name='type' onChange={this.changeType}>
                                 {form}
                             </select>
                         </div>
-                        <Form.Input  label='Description' placeholder='Description' name='description'/>
-                        <Form.Input  label='Value' type='number' placeholder='Value' name='value'/>
-                        <Form.Button color='purple' content='Submit'/>
+                        <Form.Input label='Description' placeholder='Description' name='description' value={this.state.description} onChange={this.changeDes}/>
+                        <Form.Input label='Value' type='number' placeholder='Value' name='value' value={this.state.value} onChange={this.changeValue}/>
+                        <Button color='purple' content='Submit' onClick={this.addItem}/>
                     </Form>
                 </Popup>
                 <Message
+                    className='avoidPop'
                     hidden={!this.state.status}
                     positive
-                    content='Your heve delete one element'
+                    content='Your have deleted one element'
                 />
                 <Message
+                    className='avoidPop'
                     hidden={!this.state.statusCat}
                     positive
-                    content='You have Add a new category'
+                    content='You have Added a new category'
+                />
+                <Message
+                    className='avoidPop'
+                    hidden={!this.state.statusAddItem}
+                    positive
+                    content='You have Added a new Item'
                 />
             </div>
         )

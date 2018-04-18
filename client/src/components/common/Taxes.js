@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Item, List,Card, Icon} from 'semantic-ui-react'
+import {Item, List,Card, Icon, Divider} from 'semantic-ui-react'
 import auto from './images/auto.png'
 import casa from './images/casa.jpg'
 import money from './images/money.jpeg'
@@ -44,11 +44,11 @@ class Taxes extends Component{
                             <List>
                                 <List.Item>
                                     <Icon name='smile' color='green' />
-                                    {(land.bill) ? 'if you pay before  4 may you have to pay : '+ land.cost*0.89 : 'if you pay before  4 may you have to pay :  ' + land.cost*0.90}
+                                    {(land.bill) ? 'If you pay before  4 may you have to pay : ' + land.cost * 0.89 + ' $' : 'if you pay before  6 April you have to pay :  ' + land.cost * 0.90 + ' $'}
                                 </List.Item>
                                 <List.Item>
                                     <Icon name='frown' color='red'/>
-                                    {(land.bill) ? 'if you pay after 4 may you have to pay : ' + land.cost*0.99  : 'if you pay after  4 may you have to pay :  ' + land.cost}
+                                    {(land.bill) ? 'If you pay after 4 may you have to pay : ' + land.cost * 0.99+ ' $' : 'if you pay after  6 April you have to pay :  ' + land.cost + ' $'}
                                 </List.Item>
                             </List>
                         </Card.Content>
@@ -67,12 +67,12 @@ class Taxes extends Component{
                         <Card.Content>
                             <List>
                                 <List.Item>
-                                    <Icon name='car' color='brown' />
-                                    {' You have to pay '+vehicle.cost*0.9+'$ before 4 may '}
+                                    <Icon name='car' color='green' />
+                                    {' If you pay before 4 may you have to pay '+vehicle.cost*0.9+' $'}
                                 </List.Item>
                                 <List.Item>
-                                    <Icon name='car' color='brown' />
-                                    {' You have to pay ' + vehicle.cost+ '$'}
+                                    <Icon name='car' color='red' />
+                                    {' If you pay after 4 may you have to pay ' + vehicle.cost+ ' $'}
                                 </List.Item>
                             </List>
                         </Card.Content>
@@ -94,6 +94,7 @@ class Taxes extends Component{
                         </Item.Description>
                     </Item.Content>
                 </Item>
+                <Divider/>
                 <Item>
                     <Item.Image size='small' src={casa} />
                     <Item.Content>
@@ -105,6 +106,7 @@ class Taxes extends Component{
                         </Item.Description>
                     </Item.Content>
                 </Item>
+                <Divider hidden/>
             </Item.Group>
         )
     }

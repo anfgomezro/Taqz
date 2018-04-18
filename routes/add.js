@@ -173,7 +173,7 @@ router.post('/income', (req,res) =>{
     let errors = req.validationErrors()
 
     if(errors){
-        res.send('error income add')
+        res.json({errors})
     }else{
         let newItem = new Item({
             value : value,
@@ -190,12 +190,12 @@ router.post('/income', (req,res) =>{
                     break
                 }
             }
+            let incomes = doc.data.income
             doc.save( err =>{
                 if (err) throw err
-            })   
+            })
+            res.json({ status: true, incomes })
         })
-
-        res.send('Added item')
     }
 })
 
@@ -207,7 +207,7 @@ router.post('/expense', (req,res) => {
     let errors = req.validationErrors()
 
     if(errors){
-        res.send('error expense add')
+        res.json({errors})
     }else{
         let newItem = new Item({
             value: value,
@@ -224,12 +224,14 @@ router.post('/expense', (req,res) => {
                     break
                 }
             }
+            let expenses = doc.data.expense
             doc.save(err => {
                 if (err) throw err
             })
+            res.json( { status : true , expenses })
         })
 
-        res.send('Added item')
+        
     }
 })
 
