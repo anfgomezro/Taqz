@@ -66,9 +66,9 @@ app.use('/register', register)
 app.use('/login', login)
 app.use('/logout', logout)
 app.use('/unauthorized', unauthorized)
-app.use('/usr', passport.authenticate('jwt', { session: false}), usr)
-app.use('/auth', passport.authenticate('jwt', { session: false}), auth)
-app.use('/add', passport.authenticate('jwt', { session: false}), add)
+app.use('/usr', passport.authenticate('jwt', { session: false, failureRedirect: '/unauthorized'}), usr)
+app.use('/auth', passport.authenticate('jwt', { session: false} ), auth)
+app.use('/add', passport.authenticate('jwt', { session: false }), add)
 app.use('/remove', passport.authenticate('jwt', { session: false}), remove)
 
 

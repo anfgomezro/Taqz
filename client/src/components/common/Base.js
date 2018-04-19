@@ -19,6 +19,7 @@ class Base extends Component {
         const response = await fetch('/usr/dashboard', {
             credentials: 'include'
         })
+        console.log(response)
         const body = await response.json()
         return body
     }

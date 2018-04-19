@@ -56,7 +56,7 @@ class CalendarTax extends Component{
                             </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                            <Button basic color='green' content={<a target="_blank" className='myLink' href='https://oficinavirtual.shd.gov.co/Tareaps/TaxPayment.jsp'>Pay</a>} />
+                            <Button basic color='green' content={<a target="_blank" className='myLink' rel='noopener noreferrer' href='https://oficinavirtual.shd.gov.co/Tareaps/TaxPayment.jsp'>Pay</a>} />
                         </Card.Content>
                     </Card>
                     <Card centered>
@@ -87,7 +87,7 @@ class CalendarTax extends Component{
                             </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-                            <Button basic  color='green' content={<a target="_blank" className='myLink' href='https://oficinavirtual.shd.gov.co/Tareaps/TaxPayment.jsp'>Pay</a>}/>
+                            <Button basic color='green' content={<a target="_blank" className='myLink' rel='noopener noreferrer' href='https://oficinavirtual.shd.gov.co/Tareaps/TaxPayment.jsp'>Pay</a>}/>
                         </Card.Content>
                     </Card>
                     </Grid.Column>

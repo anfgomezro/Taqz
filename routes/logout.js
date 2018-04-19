@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/',function (req,res){
+router.post('/',function (req,res){
     res.clearCookie('token')
-    res.json({ session: false })
+    //res.json({ session: false })
+    res.redirect(200,'/login')
 })
 
 module.exports = router;

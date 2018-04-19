@@ -27,10 +27,14 @@ class Header extends Component{
 
     logout = async () => {
         const response = await fetch('/logout',{
-            credentials: 'include'
+            credentials: 'include',
+            method : 'post'
         })
-        const body = await response.json()
-        this.setState({session : body.session})
+        //const body = await response.json()
+        if(response.status == 200){
+            this.setState({ session: false })
+        }
+        
     }
     
     render (){
@@ -51,7 +55,7 @@ class Header extends Component{
             item_gs = <Menu.Item name='get started' />
             item_a = <Menu.Item ><Link to='/about' className='myLink'>About</Link></Menu.Item >   
             item_c = <Menu.Item name='contact' />
-            item_si = <Menu.Item><Link to='/register' className='myLink'>Sign up</Link></Menu.Item>
+            item_si = <Menu.Item><Link id='sign-up' to='/register' className='myLink'>Sign up</Link></Menu.Item>
             item_su = <Menu.Item><Link to='/login' className='myLink'>Sign in</Link></Menu.Item>
         }
 

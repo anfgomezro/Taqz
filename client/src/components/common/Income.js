@@ -184,19 +184,19 @@ class Income extends Component {
                 <Message
                     className='avoidPop'
                     hidden={!this.state.status}
-                    positive
+                    negative
                     content='Your have deleted one element'
                 />
                 <Message
                     className='avoidPop'
                     hidden={!this.state.statusCat}
-                    positive
+                    negative
                     content='Your have Added new Category'
                 />
                 <Message
                     className='avoidPop'
                     hidden={!this.state.statusAddItem}
-                    positive
+                    negative
                     content='Your have Added new Item'
                 />
             </div>

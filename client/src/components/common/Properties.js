@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Segment, Accordion, Form, Card, Divider, Button, Popup, Message} from 'semantic-ui-react'
+import { Segment, Accordion, Form, Card, Divider, Button, Message} from 'semantic-ui-react'
 
 class Properties extends Component {
 constructor(props){
@@ -67,6 +67,8 @@ constructor(props){
             .then(res => {
                 this.setState({ statusDelete: res.status })
                 this.setState({ lands: res.lands})
+                this.setState({ statusAddCar : false})
+                this.setState( {statusAddLand : false })
             })
             .catch(err => console.log(err))
     }
@@ -87,8 +89,10 @@ constructor(props){
                 return res.json()
             })
             .then(res => {
-                this.setState({ status: res.status })
+                this.setState({ statusDelete : res.status })
                 this.setState({ vehicles : res.vehicles})
+                this.setState({ statusAddCar : false})
+                this.setState( {statusAddLand : false})
             })
             .catch(err => console.log(err))
     }
@@ -110,8 +114,12 @@ constructor(props){
                 return res.json()
             })
             .then(res => {
+                this.setState({ line : ''})
+                this.setState({ kind : ''})
                 this.setState({ statusAddCar : res.status })
                 this.setState({ vehicles : res.vehicles})
+                this.setState( {statusAddLand : false})
+                this.setState({statusDelete : false})
             })
             .catch(err => console.log(err))
     }
@@ -134,8 +142,13 @@ constructor(props){
                 return res.json()
             })
             .then(res => {
+                this.setState( { value : 0})
+                this.setState({ check : ''})
+                this.setState({ name : ''})
                 this.setState({ statusAddLand : res.status })
                 this.setState({ lands: res.lands })
+                this.setState({ statusDelete : false})
+                this.setState( {statusAddCar : false})
             })
             .catch(err => console.log(err))
     }

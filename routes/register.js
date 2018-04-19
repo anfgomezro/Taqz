@@ -11,18 +11,18 @@ router.post('/',function (req,res){
     let password = req.body.password
     let password2 = req.body.password2
 
-    req.checkBody('first_name','Name is required').notEmpty()
-    req.checkBody('email', 'Email is required').notEmpty()
-    req.checkBody('email', 'Email is not valid').isEmail()
-    req.checkBody('last_name', 'Last Name is required').notEmpty()
-    req.checkBody('password' , 'Password is required').notEmpty()
-    req.checkBody('password2' , 'Passwords don\'t match').equals(password)
+    req.checkBody('first_name','fnS').notEmpty()
+    req.checkBody('email', 'emailS').notEmpty()
+    req.checkBody('email', 'emailnS').isEmail()
+    req.checkBody('last_name', 'lnS').notEmpty()
+    req.checkBody('password' , 'pS').notEmpty()
+    req.checkBody('password2' , 'pnmS').equals(password)
 
     let errors = req.validationErrors()
 
     if(errors){
         console.log(errors)
-        res.json({errors})
+        res.json({errors, status : false})
     } else {
 
         let newTax = new Tax({
@@ -64,7 +64,7 @@ router.post('/',function (req,res){
         })
 
         User.createUser(newUser)
-        res.redirect('/login')
+        res.json({status : true})
     }
 })
 
