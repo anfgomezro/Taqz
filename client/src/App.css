@@ -25,7 +25,7 @@
 }
 
 .footer {
-  background-color: rgba(21, 101, 133, 0.459);
+  background-color: #084b45;
 }
 
 .stadistic {
@@ -37,6 +37,7 @@
   padding: 1rem 0;
   margin: 1rem 0 0 0;
 }
+
 .main{
  margin-top: 0;
  min-height: 364px;
@@ -93,4 +94,18 @@
 
 .avoidPop{
   margin-top: 70px !important;
+}
+
+.min-h{
+  min-height: 389px;
+}
+
+.title-home{
+  font-size: 43px;
+  color: #0e6521;
+  font-family: 'Indie Flower', cursive;
+}
+
+.letter-footer{
+  color: white !important;
 }

@@ -55,7 +55,7 @@ class Header extends Component{
             item_gs = <Menu.Item name='get started' />
             item_a = <Menu.Item ><Link to='/about' className='myLink'>About</Link></Menu.Item >   
             item_c = <Menu.Item name='contact' />
-            item_si = <Menu.Item><Link id='sign-up' to='/register' className='myLink'>Sign up</Link></Menu.Item>
+            item_si = <Menu.Item><Link to='/register' className='myLink'>Sign up</Link></Menu.Item>
             item_su = <Menu.Item><Link to='/login' className='myLink'>Sign in</Link></Menu.Item>
         }
 

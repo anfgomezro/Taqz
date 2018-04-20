@@ -9,27 +9,26 @@ class Footer extends Component{
             <Container>
                 <Grid columns={2} padded>
                     <Grid.Column>
-                    <List link>
-                        <List.Item active>Taqz</List.Item>
-                        <List.Item >Why taqz?</List.Item>
-                        <List.Item >FAQ</List.Item>
-                        <List.Item >hi</List.Item>
-                    </List>
+                        <List link >
+                            <List.Item active className='letter-footer'>Taqz</List.Item>
+                            <List.Item className='letter-footer'>Why taqz?</List.Item>
+                            <List.Item className='letter-footer'>FAQ</List.Item>
+                        </List>
                     </Grid.Column>
-                    <List link>
-                        <List.Item active>About Taqz</List.Item>
-                        <List.Item >
-                            <Link to='/about'>About</Link>
-                        </List.Item>
-                        <List.Item >Contact</List.Item>
-                        <List.Item >Team</List.Item>
-                    </List>
                     <Grid.Column>
+                        <List link >
+                            <List.Item className='letter-footer' active>About Taqz</List.Item>
+                            <List.Item >
+                                <Link className='letter-footer' to='/about'>About</Link>
+                        </List.Item>
+                            <List.Item className='letter-footer'>Contact</List.Item>
+                            <List.Item className='letter-footer'>Team</List.Item>
+                        </List>
                     </Grid.Column>
                 </Grid>
                 <Divider section />
                 <Segment basic>
-                    <p> Copyright (c) 2018  All Rights Reserved. </p>                                                        
+                    <p className='letter-footer'> Copyright (c) 2018  All Rights Reserved. </p>                                                        
                 </Segment>
             </Container>
             </div>

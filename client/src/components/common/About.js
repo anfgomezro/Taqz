@@ -6,7 +6,7 @@ class About extends Component {
 
     render (){
         return(
-                <div className='myContainer'>
+                <div className='myContainer min-h'>
                  <Grid columns={2} padded >
                     <Grid.Column>
                         <Image floated='left' circular size='small' src={img_and}/>
