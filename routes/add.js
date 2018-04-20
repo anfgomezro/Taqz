@@ -18,7 +18,7 @@ router.post('/car', (req,res) => {
 
     if (kind =='automoviles'){
         clase = 'Automovil'
-    } else if (kind =='camionetas'){
+    } else if (kind =='camoinetas'){
         clase= 'Camioneta'
     } else if (kind =='doblecabina'){
         clase = 'Doblecabina'
@@ -39,7 +39,9 @@ router.post('/car', (req,res) => {
             database : 'vehiculos'
         })
 
-        let query = 'SELECT A2017 FROM '+ kind +' WHERE linea=\''+line+'\';'
+        let query = 'SELECT A2017 FROM ' + kind + ' WHERE Linea=\'' + line + '\''
+        console.log(kind)
+        console.log(query)
         var cost = 0
 
         connection.connect(function (err){

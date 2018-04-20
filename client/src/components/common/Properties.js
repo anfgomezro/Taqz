@@ -14,7 +14,7 @@ constructor(props){
         statusAddCar : false,
         statusAddLand: false,
         line : '',
-        kind : ''
+        kind: 'automoviles'
     }
 }
     componentWillMount(){
@@ -115,7 +115,6 @@ constructor(props){
             })
             .then(res => {
                 this.setState({ line : ''})
-                this.setState({ kind : ''})
                 this.setState({ statusAddCar : res.status })
                 this.setState({ vehicles : res.vehicles})
                 this.setState( {statusAddLand : false})
@@ -170,13 +169,13 @@ constructor(props){
                         <label>Brand of Vehicle</label>
                         <select name='kind' className='ui selection dropdown' onChange={this.changeKind}>
                             <option value="automoviles">AutoMóvil</option>
-                            <option value="camionetas">Camioneta</option>
+                            <option value="camoinetas">Camioneta</option>
                             <option value="doblecabina">Doblecabina</option>
                             <option value="electricos">Electríco o Híbrido</option>
                             <option value="motos">Motocicleta</option>
                         </select>
                     </div>   
-                    <Form.Input fluid label='Line' placeholder='Line' name='line' value={this.state.nameLine} onChange={this.changeLine}/>
+                    <Form.Input fluid label='Line' placeholder='Line' name='line' value={this.state.line} onChange={this.changeLine}/>
                 <Form.Button color='purple' content='Add' onClick={this.addVehicle}/>
             </div>
         )
@@ -259,7 +258,7 @@ constructor(props){
                 <Message
                     hidden={!this.state.statusDelete}
                     positive
-                    content='Your heve delete one element'
+                    content='Your have delete one element'
                 />
                 <Message
                     hidden={!this.state.statusAddCar}
